@@ -1,0 +1,45 @@
+[
+  {
+    "book": {
+      "name": "Хоббит, или Туда и обратно",
+      "author": "Джон Р. Р. Толкин",
+      "year": 1937,
+      "genre": "детская литература, сказка, фэнтези",
+      "isCoverSolid": true
+    },
+    "issued": false,
+    "employee": {
+      "employeeName": "",
+      "phone": ""
+    }
+  },
+  {
+    "book": {
+      "name": "1984",
+      "author": "Джордж Оруэлл",
+      "year": 1949,
+      "genre": "роман-антиутопия, социальная фантастика",
+      "isCoverSolid": true
+    },
+    "issued": false,
+    "employee": {
+      "employeeName": "",
+      "phone": ""
+    }
+  },
+  {
+    "book": {
+      "name": "Ведьмак. Последнее желание",
+      "author": "Анджей Сапковский",
+      "year": 1993,
+      "genre": "героическое фэнтези, приключенческий роман",
+      "isCoverSolid": true
+    },
+    "issued": true,
+    "dateOfIssued": "2022-03-10T18:46:40",
+    "employee": {
+      "employeeName": "Samat",
+      "phone": "0779868585"
+    }
+  }
+]
