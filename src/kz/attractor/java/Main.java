@@ -13,11 +13,5 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        var model = new EmployeeModel();
-//        var employees = model.getEmployee();
-//        System.out.println(employees.size());
-//        employees.add(new Employee("zhoma@gmail.com", "zhoomart", "qwer"));
-//        System.out.println(employees.size());
-//        EmployeeModel.writeFile(employees);
     }
 }
