@@ -11,12 +11,14 @@
 <div>
     Список книг:
     <#list data as dat>
+    <p>ID: ${dat.book.id}</p>
     <p>Название книги: <a href="/books/1">${dat.book.name}</a></p>
     <p>Cтатус: <#if dat.issued>
-        выдан сотруднику: ${dat.employee.employeeName}, дата ${dat.dateOfIssued}
+        выдан сотруднику: ${dat.employee.employeeName}, дата ${dat.dateOfIssued}, id ${dat.employee.id}
         <#else>
         не выдавался
     </#if></p>
+
     </#list>
 </div>
 

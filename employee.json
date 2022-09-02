@@ -1,4 +1,33 @@
-{
-  "employeeName": "Samat",
-  "phone": "0779868585"
-}
+[
+  {
+    "id": "musaevsamat7@gmail.com",
+    "currentBooks": [
+      {
+        "id": "3",
+        "name": "Ведьмак. Последнее желание",
+        "author": "Анджей Сапковский",
+        "year": 1993,
+        "isCoverSolid": true,
+        "genre": "героическое фэнтези, приключенческий роман"
+      }
+    ],
+    "issuedBooks": [],
+    "employeeName": "Samat",
+    "password": "qwerty123"
+  },
+  {
+    "id": "zhoma@gmail.com",
+    "employeeName": "zhoomart",
+    "password": "qwer"
+  },
+  {
+    "id": "zhoma.erkinbek@gmail.com",
+    "employeeName": "zhoomart",
+    "password": "qwe"
+  },
+  {
+    "id": "zhom@gmail.com",
+    "employeeName": "zhoomar",
+    "password": "qwe"
+  }
+]
