@@ -5,8 +5,17 @@
     <title>Title</title>
 </head>
 <body>
-    <p>Имя сотрудника: ${employee.employeeName}</p>
-    <p>Телефон: ${employee.phone}</p>
-    <p>Книги которые взял: ${book.name}</p>
+<#list employee as emp>
+    <p>E-mail: ${emp.id}</p>
+    <p>Пароль: ${emp.password}</p>
+    <p>Имя сотрудника: ${emp.employeeName}</p>
+    <p>Книги которые взял:</p>
+    <#list emp.currentBooks as curbook>
+        <p>${curbook?counter}.</p>
+        <p>ID: ${curbook.id}</p>
+        <p>Название: ${curbook.name}</p>
+        <p>Автор: ${curbook.author}</p>
+    </#list>
+</#list>
 </body>
 </html>

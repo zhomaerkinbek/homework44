@@ -3,11 +3,29 @@ package kz.attractor.java.homework44;
 import java.time.LocalDate;
 
 public class Book {
+    private String id;
     private String name;
     private String author;
     private int year;
-    private String genre;
     private boolean isCoverSolid;
+    private String genre;
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
 
     public String getName() {
         return name;

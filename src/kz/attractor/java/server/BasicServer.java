@@ -3,12 +3,18 @@ package kz.attractor.java.server;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public abstract class BasicServer {
 
@@ -27,7 +33,7 @@ public abstract class BasicServer {
     }
 
     private static String makeKey(HttpExchange exchange) {
-        var method = exchange.getRequestMethod();
+        var method = exchange.getRequestMethod(); // GET, POST
         var path = exchange.getRequestURI().getPath();
 
         var index = path.lastIndexOf(".");
@@ -38,6 +44,10 @@ public abstract class BasicServer {
 
     private static void setContentType(HttpExchange exchange, ContentType type) {
         exchange.getResponseHeaders().set("Content-Type", String.valueOf(type));
+    }
+
+    public String getContentType(HttpExchange exchange) {
+        return exchange.getRequestHeaders().getOrDefault("Content-Type", List.of("")).get(0);
     }
 
     private static HttpServer createServer(String host, int port) throws IOException {
@@ -65,11 +75,16 @@ public abstract class BasicServer {
         registerFileHandler(".html", ContentType.TEXT_HTML);
         registerFileHandler(".jpg", ContentType.IMAGE_JPEG);
         registerFileHandler(".png", ContentType.IMAGE_PNG);
+        registerFileHandler(".svg", ContentType.IMAGE_SVG);
 
     }
 
     protected final void registerGet(String route, RouteHandler handler) {
         getRoutes().put("GET " + route, handler);
+    }
+
+    protected final void registerPost(String route, RouteHandler handler) {
+        getRoutes().put("POST " + route, handler);
     }
 
     protected final void registerFileHandler(String fileExt, ContentType type) {
@@ -78,6 +93,18 @@ public abstract class BasicServer {
 
     protected final Map<String, RouteHandler> getRoutes() {
         return routes;
+    }
+
+    protected final String getBody(HttpExchange exchange) {
+        InputStream input = exchange.getRequestBody();
+        InputStreamReader isr = new InputStreamReader(input, StandardCharsets.UTF_8);
+
+        try (BufferedReader reader = new BufferedReader(isr)) {
+            return reader.lines().collect(Collectors.joining(""));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     protected final void sendFile(HttpExchange exchange, Path pathToFile, ContentType contentType) {
@@ -115,6 +142,16 @@ public abstract class BasicServer {
         try {
             var data = "404 Not found".getBytes();
             sendByteData(exchange, ResponseCodes.NOT_FOUND, ContentType.TEXT_PLAIN, data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected final void redirect303(HttpExchange exchange, String path) {
+        try {
+            exchange.getResponseHeaders().add("Location", path);
+            exchange.sendResponseHeaders(303, 0);
+            exchange.getResponseBody().close();
         } catch (IOException e) {
             e.printStackTrace();
         }
