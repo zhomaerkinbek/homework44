@@ -1,19 +1,19 @@
 package kz.attractor.java.lesson44;
 
 import com.sun.net.httpserver.HttpExchange;
-import kz.attractor.java.homework44.Employee;
-import kz.attractor.java.homework44.EmployeeModel;
-import kz.attractor.java.homework44.LoginModel;
-import kz.attractor.java.homework44.RegistrationModel;
+import kz.attractor.java.homework44.*;
 import kz.attractor.java.server.ContentType;
+import kz.attractor.java.server.Cookie;
 import kz.attractor.java.server.ResponseCodes;
 import kz.attractor.java.server.Utils;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
 
 public class Lesson45Server extends Lesson44Server {
+    private static Employee currentEmployee = new Employee("sample@sample.com","Некий сотрудник", "samplepassword");
     public Lesson45Server(String host, int port) throws IOException {
         super(host, port);
 
@@ -26,7 +26,11 @@ public class Lesson45Server extends Lesson44Server {
     }
 
     private void profileGet(HttpExchange exchange) {
-        renderTemplate(exchange, "profile.html", new Employee("sample@sample.com", "Некий сотрудник", "samplepassword"));
+        var parsed = Cookie.parse(getCookies(exchange));
+        if(parsed.get("userId") == null || !parsed.get("userId").equalsIgnoreCase(currentEmployee.getSessionId())) {
+            currentEmployee = new Employee("sample@sample.com", "Некий сотрудник", "samplepassword");
+        }
+        renderTemplate(exchange, "profile.html", currentEmployee);
 
     }
 
@@ -64,21 +68,27 @@ public class Lesson45Server extends Lesson44Server {
         Employee currentEmp = new Employee();
         var employees = model.getEmployee();
         String raw = getBody(exchange);
-
         Map<String, String> parsed = Utils.parseUrlEncoded(raw, "&");
         for (Employee employee : employees) {
             if(employee.getId().equalsIgnoreCase(parsed.get("email"))){
                 if(employee.getPassword().equalsIgnoreCase(parsed.get("password"))){
                     check = true;
+                    employee.makeSessionId();
                     currentEmp = employee;
                 }
             }
         }
+        EmployeeModel.writeFile(employees);
         if(check){
-            renderTemplate(exchange, "profile.html", new Employee(currentEmp.getId(), currentEmp.getEmployeeName(), currentEmp.getPassword()));
+            Cookie sessionCookie = Cookie.make("userId", currentEmp.getSessionId());
+            sessionCookie.setHttpOnly(true);
+            sessionCookie.setMaxAge(600);
+            exchange.getResponseHeaders().add("Set-Cookie", sessionCookie.toString());
+            currentEmployee = currentEmp;
+            redirect303(exchange, "/profile");
         } else {
             status = true;
-            renderTemplate(exchange, "login.html", new LoginModel(true));
+            renderTemplate(exchange, "login.html", new LoginModel(status));
         }
 
     }

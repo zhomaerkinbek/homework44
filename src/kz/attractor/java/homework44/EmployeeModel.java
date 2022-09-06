@@ -4,14 +4,19 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public class EmployeeModel {
-    private ArrayList<Employee> employee;
+    private static ArrayList<Employee> employee;
     public EmployeeModel() {
         employee = new ArrayList(List.of(readEmployee()));
     }
@@ -47,5 +52,8 @@ public class EmployeeModel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public static Optional<Employee> getUserFromEmail(String email){
+        return employee.stream().filter(e -> e.getId().equalsIgnoreCase(email)).findFirst();
     }
 }

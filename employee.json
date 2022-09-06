@@ -1,6 +1,7 @@
 [
   {
     "id": "musaevsamat7@gmail.com",
+    "sessionId": "e2d4224",
     "currentBooks": [
       {
         "id": "3",
@@ -17,17 +18,34 @@
   },
   {
     "id": "zhoma@gmail.com",
+    "sessionId": "",
+    "currentBooks": [],
+    "issuedBooks": [],
     "employeeName": "zhoomart",
     "password": "qwer"
   },
   {
     "id": "zhoma.erkinbek@gmail.com",
+    "sessionId": "27592613",
+    "currentBooks": [],
+    "issuedBooks": [],
     "employeeName": "zhoomart",
     "password": "qwe"
   },
   {
     "id": "zhom@gmail.com",
+    "sessionId": "",
+    "currentBooks": [],
+    "issuedBooks": [],
     "employeeName": "zhoomar",
+    "password": "qwe"
+  },
+  {
+    "id": "zhffbek@gmail.com",
+    "sessionId": "",
+    "currentBooks": [],
+    "issuedBooks": [],
+    "employeeName": "asdasd",
     "password": "qwe"
   }
 ]
