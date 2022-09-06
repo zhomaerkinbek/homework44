@@ -83,7 +83,7 @@ public class Lesson45Server extends Lesson44Server {
             Cookie sessionCookie = Cookie.make("userId", currentEmp.getSessionId());
             sessionCookie.setHttpOnly(true);
             sessionCookie.setMaxAge(600);
-            exchange.getResponseHeaders().add("Set-Cookie", sessionCookie.toString());
+            setCookie(exchange, sessionCookie);
             currentEmployee = currentEmp;
             redirect303(exchange, "/profile");
         } else {
