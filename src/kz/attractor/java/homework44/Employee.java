@@ -1,13 +1,26 @@
 package kz.attractor.java.homework44;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Employee {
     private String id;
+    private String sessionId;
     private List<Book> currentBooks;
     private List<Book> issuedBooks;
     private String employeeName;
     private String password;
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
 
     public Employee(String id, List<Book> currentBooks, List<Book> issuedBooks, String employeeName, String password) {
         this.id = id;
@@ -62,5 +75,21 @@ public class Employee {
 
     public void setIssuedBooks(List<Book> issuedBooks) {
         this.issuedBooks = issuedBooks;
+    }
+
+    public void makeSessionId() {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            setSessionId(convertToString(md.digest(employeeName.getBytes())));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+    private String convertToString(byte[] array) {
+        return IntStream.range(0, array.length / 4)
+                .map(i -> array[i])
+                .map(i -> (i < 0) ? i + 127 : i)
+                .mapToObj(Integer::toHexString)
+                .collect(Collectors.joining());
     }
 }

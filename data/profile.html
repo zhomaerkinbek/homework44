@@ -8,5 +8,12 @@
 <p>E-mail: ${id}</p>
 <p>Пароль: ${password}</p>
 <p>Имя сотрудника: ${employeeName}</p>
+<#if currentBooks?? && (currentBooks?size > 0)>
+<p>Текушие книги:</p>
+<#list currentBooks as book>
+    <p>Название книги: ${book.name}</p>
+    <p>Год выпуска: ${book.year}</p>
+</#list>
+</#if>
 </body>
 </html>
