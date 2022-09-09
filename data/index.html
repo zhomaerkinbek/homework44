@@ -4,34 +4,114 @@
 <head>
     <meta charset="UTF-8">
     <title>Login form</title>
-    <link rel="stylesheet" href="css/forms.css">
-</head>
 
-<body>
-    <main>
-        <form action="/login" method="post">
-            <fieldset>
-                <div class="legend">
-                  <p>Welcome!</p>
-                  <img src="/images/1.jpg" alt="coins" style="display:block; width: 200px; height: 200px;">
-                </div>
-                <div class="form-element">
-                    <label for="user-email">email</label>
-                    <input type="email" name="email" id="user-email" placeholder="your email" required autofocus>
-                </div>
-                <div class="form-element">
-                    <label for="user-password">password</label>
-                    <input type="password" name="user-password" id="user-password" placeholder="your password" required>
-                </div>
-                <div class="hr-line">
-                    <span class="details">one more step to go</span>
-                </div>
-                <div class="form-element">
-                    <button class="register-button" type="submit">Login!</button>
-                </div>
-            </fieldset>
-        </form>
-    </main>
+    <link href="/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+    </style>
+    <link href="css/signin.css" rel="stylesheet">
+    <link href="css/headers.css" rel="stylesheet">
+    <link href="css/cover.css" rel="stylesheet">
+
+</head>
+<body class="h-100 text-center">
+<div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+            <img class="bi me-2" src="/assets/brand/bootstrap-logo.svg" alt="" width="40" height="32">
+        </a>
+
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="/" class="nav-link px-2 link-secondary">Главная</a></li>
+            <li><a href="/books" class="nav-link px-2 link-dark">Книги</a></li>
+            <li><a href="/profile" class="nav-link px-2 link-dark">Профиль</a></li>
+            <li><a href="/employees" class="nav-link px-2 link-dark">Сотрудники</a></li>
+        </ul>
+
+        <div class="col-md-3 text-end">
+            <#if employee??>
+            ${employee.id}
+            </#if>
+            <#if !login??>
+            <a href="/login"><button type="button" class="btn btn-outline-primary me-2">Login</button></a>
+            <a href="/register"><button type="button" class="btn btn-primary">Sign-up</button></a>
+            <#else>
+            <a href="/logout"><button type="button" class="btn btn-outline-primary me-2">Logout</button></a>
+        </#if>
+        </div>
+    </header>
+</div>
+<div class="cover-container d-flex w-100 p-3 mx-auto flex-column">
+<main class="px-3">
+    <h1>Офисный Booklender.</h1>
+    <p class="lead">В офисе у нас есть книги которые наши сотрудники могут взять домой почитать. Так же у нас
+
+        есть лист, в котором сотрудники отмечают когда и какую они взяли книгу, но часто получается
+
+        так, что они забывают или отмечать что они её взяли, или что вернули. Так же обычно мы не
+
+        разрешаем брать на чтение больше двух книг одновременно но, опять же, сейчас это трудно
+
+        отследить. И нам хотелось бы иметь возможность напомнить тем сотрудникам которые взяли
+
+        книгу, о том, что её надо сдать. Мы хотим, что бы вы разработали для нас программу которая
+
+        упростит весь этот процесс и поможет нам следить за тем, какие книги были выданы каким
+
+        сотрудникам и когда.</p>
+</main>
+</div>
+<script src="/assets/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

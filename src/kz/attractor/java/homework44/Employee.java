@@ -9,8 +9,8 @@ import java.util.stream.IntStream;
 public class Employee {
     private String id;
     private String sessionId;
-    private List<Book> currentBooks;
-    private List<Book> issuedBooks;
+    private List<String> currentBooks;
+    private List<String> issuedBooks;
     private String employeeName;
     private String password;
 
@@ -22,7 +22,7 @@ public class Employee {
         this.sessionId = sessionId;
     }
 
-    public Employee(String id, List<Book> currentBooks, List<Book> issuedBooks, String employeeName, String password) {
+    public Employee(String id, List<String> currentBooks, List<String> issuedBooks, String employeeName, String password) {
         this.id = id;
         this.currentBooks = currentBooks;
         this.issuedBooks = issuedBooks;
@@ -61,19 +61,19 @@ public class Employee {
         this.id = id;
     }
 
-    public List<Book> getCurrentBooks() {
+    public List<String> getCurrentBooks() {
         return currentBooks;
     }
 
-    public void setCurrentBooks(List<Book> currentBooks) {
+    public void setCurrentBooks(List<String> currentBooks) {
         this.currentBooks = currentBooks;
     }
 
-    public List<Book> getIssuedBooks() {
+    public List<String> getIssuedBooks() {
         return issuedBooks;
     }
 
-    public void setIssuedBooks(List<Book> issuedBooks) {
+    public void setIssuedBooks(List<String> issuedBooks) {
         this.issuedBooks = issuedBooks;
     }
 

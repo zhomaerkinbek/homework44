@@ -3,16 +3,11 @@
     "id": "musaevsamat7@gmail.com",
     "sessionId": "e2d4224",
     "currentBooks": [
-      {
-        "id": "3",
-        "name": "Ведьмак. Последнее желание",
-        "author": "Анджей Сапковский",
-        "year": 1993,
-        "isCoverSolid": true,
-        "genre": "героическое фэнтези, приключенческий роман"
-      }
+      "3"
     ],
-    "issuedBooks": [],
+    "issuedBooks": [
+      "2"
+    ],
     "employeeName": "Samat",
     "password": "qwerty123"
   },
@@ -27,8 +22,12 @@
   {
     "id": "zhoma.erkinbek@gmail.com",
     "sessionId": "27592613",
-    "currentBooks": [],
-    "issuedBooks": [],
+    "currentBooks": [
+      "2"
+    ],
+    "issuedBooks": [
+      "1"
+    ],
     "employeeName": "zhoomart",
     "password": "qwe"
   },
@@ -47,5 +46,10 @@
     "issuedBooks": [],
     "employeeName": "asdasd",
     "password": "qwe"
+  },
+  {
+    "id": "smat7@gmail.com",
+    "employeeName": "werwer",
+    "password": "qwerty123"
   }
 ]
