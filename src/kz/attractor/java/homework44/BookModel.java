@@ -6,36 +6,47 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookModel {
-    private Book book;
+    private ArrayList<Book> books;
+
 
     public BookModel() {
-        book = readBook();
+        books = new ArrayList(List.of(readBooks()));
     }
 
-    public Book getBook() {
-        return book;
+    public ArrayList<Book> getBooks() {
+        return books;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setBooks(ArrayList<Book> books) {
+        this.books = books;
     }
 
-    public static Book readBook(){
-        String json = getJson("./book.json");
-        Gson gson = new Gson();
-        return gson.fromJson(json, Book.class);
-    }
-
-    static String getJson(String fileName){
+    public static Book[] readBooks(){
+        Path path = Paths.get("./books.json");
         String json = "";
-        Path path = Paths.get(fileName);
-        try {
+        try{
             json = Files.readString(path);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return json;
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return gson.fromJson(json, Book[].class);
+    }
+
+    public static void writeBooks(ArrayList<Book> books){
+        Path path = Paths.get("./books.json");
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Book[] result = books.stream().toArray(Book[]::new);
+        String json = gson.toJson(result);
+        try{
+            byte[] arr = json.getBytes();
+            Files.write(path, arr);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

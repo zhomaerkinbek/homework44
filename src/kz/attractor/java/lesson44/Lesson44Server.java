@@ -7,7 +7,6 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 import kz.attractor.java.homework44.BookModel;
 import kz.attractor.java.homework44.EmployeeModel;
-import kz.attractor.java.homework44.IssuanceOfBooksModel;
 import kz.attractor.java.server.BasicServer;
 import kz.attractor.java.server.ContentType;
 import kz.attractor.java.server.ResponseCodes;
@@ -21,9 +20,6 @@ public class Lesson44Server extends BasicServer {
         super(host, port);
         registerGet("/sample", this::freemarkerSampleHandler);
 
-        registerGet("/books", this::issuanceBooksHandler);
-        registerGet("/books/1", this::bookHandler);
-        registerGet("/employee", this::employeeHandler);
     }
 
 
@@ -54,17 +50,7 @@ public class Lesson44Server extends BasicServer {
         renderTemplate(exchange, "sample.html", getSampleDataModel());
     }
 
-    private void issuanceBooksHandler(HttpExchange exchange) {
-        renderTemplate(exchange, "books.html", getIssuanceOfBooksModel());
-    }
 
-    private void bookHandler(HttpExchange exchange) {
-        renderTemplate(exchange, "book.html", new BookModel());
-    }
-
-    private void employeeHandler(HttpExchange exchange) {
-        renderTemplate(exchange, "employee.html", new EmployeeModel());
-    }
 
 protected void renderTemplate(HttpExchange exchange, String templateFile, Object dataModel) {
     try {
@@ -103,7 +89,5 @@ protected void renderTemplate(HttpExchange exchange, String templateFile, Object
         return new SampleDataModel();
     }
 
-    private IssuanceOfBooksModel getIssuanceOfBooksModel(){
-        return new IssuanceOfBooksModel();
-    }
+
 }

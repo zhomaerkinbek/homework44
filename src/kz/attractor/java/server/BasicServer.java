@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public abstract class BasicServer {
@@ -68,7 +69,6 @@ public abstract class BasicServer {
         // обработчик для корневого запроса
         // именно этот обработчик отвечает что отображать,
         // когда пользователь запрашивает localhost:9889
-        registerGet("/", exchange -> sendFile(exchange, makeFilePath("index.html"), ContentType.TEXT_HTML));
 
         // эти обрабатывают запросы с указанными расширениями
         registerFileHandler(".css", ContentType.TEXT_CSS);
@@ -138,7 +138,7 @@ public abstract class BasicServer {
         }
     }
 
-    private void respond404(HttpExchange exchange) {
+    protected void respond404(HttpExchange exchange) {
         try {
             var data = "404 Not found".getBytes();
             sendByteData(exchange, ResponseCodes.NOT_FOUND, ContentType.TEXT_PLAIN, data);
@@ -172,5 +172,11 @@ public abstract class BasicServer {
 
     protected void setCookie(HttpExchange exchange, Cookie cookie){
         exchange.getResponseHeaders().add("Set-Cookie", cookie.toString());
+    }
+    protected String getQueryParams(HttpExchange exchange) {
+        // нам "повезло", что HttpExchange умеет вытаскивать
+        // параметры запроса из строки запроса.
+        String query = exchange.getRequestURI().getQuery();
+        return Objects.nonNull(query) ? query : "";
     }
 }
